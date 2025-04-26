@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VCodez - Login</title>
+  <link rel="icon" href="https://vcodez.com/wp-content/uploads/2024/11/vcodez-8-300x74.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    *, *::before, *::after {
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      background: #080f28;
+    }
+    
+    .bg-gradient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: radial-gradient(circle at 30% 50%, #0f2846 0%, transparent 40%),
+                  radial-gradient(circle at 70% 20%, #001e2f 0%, transparent 30%),
+                  linear-gradient(135deg, #080f28 0%, #102442 50%, #0e2c56 100%);
+      opacity: 1;
+    }
+    
+    .light-beam {
+      position: absolute;
+      background: linear-gradient(to right, transparent, rgba(0, 150, 255, 0.03), transparent);
+      transform: rotate(45deg);
+      pointer-events: none;
+    }
+    
+    .light-beam:nth-child(1) {
+      width: 200vw;
+      height: 20vh;
+      top: 10%;
+      left: -50%;
+      animation: beam-move-1 15s infinite linear;
+    }
+    
+    .light-beam:nth-child(2) {
+      width: 200vw;
+      height: 30vh;
+      top: 40%;
+      left: -50%;
+      animation: beam-move-2 20s infinite linear;
+    }
+    
+    @keyframes beam-move-1 {
+      0% { transform: rotate(45deg) translateY(0); }
+      100% { transform: rotate(45deg) translateY(100vh); }
+    }
+    
+    @keyframes beam-move-2 {
+      0% { transform: rotate(45deg) translateY(-100vh); }
+      100% { transform: rotate(45deg) translateY(100vh); }
+    }
+    
+    .login-container {
+      width: 100%;
+      max-width: 920px;
+      display: flex;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    }
+    
+    .login-sidebar {
+      width: 42%;
+      background: linear-gradient(135deg, #102442 0%, #0c1e38 100%);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset -2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .sidebar-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.05;
+      background-image: 
+        linear-gradient(45deg, #ffffff 25%, transparent 25%),
+        linear-gradient(-45deg, #ffffff 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #ffffff 75%),
+        linear-gradient(-45deg, transparent 75%, #ffffff 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+      z-index: 0;
+    }
+    
+    .sidebar-content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    .sidebar-heading {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 25px;
+      line-height: 1.3;
+      letter-spacing: -0.5px;
+    }
+    
+    .sidebar-text {
+      font-size: 14px;
+      line-height: 1.6;
+      opacity: 0.85;
+      margin-bottom: 35px;
+    }
+    
+    .features {
+      margin-bottom: 40px;
+    }
+    
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 5px;
+      background: rgba(0, 122, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      color: #3399ff;
+    }
+    
+    .feature-text-container {
+      flex: 1;
+    }
+    
+    .feature-title {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+    
+    .feature-desc {
+      font-size: 13px;
+      opacity: 0.7;
+      line-height: 1.5;
+    }
+    
+    .copyright {
+      font-size: 12px;
+      opacity: 0.5;
+      margin-top: 20px;
+    }
+    
+    .login-box {
+      width: 58%;
+      padding: 40px;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    
+    .center-logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .center-logo img {
+      height: 38px;
+    }
+    
+    .login-header {
+      margin-bottom: 35px;
+      text-align: center;
+    }
+    
+    .login-heading {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+    
+    .login-subheading {
+      font-size: 14px;
+      color: #6b7280;
+    }
+    
+    .input-group {
+      margin-bottom: 24px;
+    }
+    
+    .input-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #374151;
+      font-size: 14px;
+    }
+    
+    .input-wrapper {
+      position: relative;
+    }
+    
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+    }
+    
+    .input-group input {
+      width: 100%;
+      padding: 12px 12px 12px 42px;
+      border-radius: 5px;
+      border: 1px solid #d1d5db;
+      background: #f9fafb;
+      color: #1f2937;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    
+    .input-group input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      background: white;
+    }
+    
+    .input-group input::placeholder {
+      color: #9ca3af;
+    }
+    
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+    
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+    }
+    
+    .checkbox-wrapper input {
+      margin-right: 8px;
+    }
+    
+    .forgot-link {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .forgot-link:hover {
+      text-decoration: underline;
+    }
+    
+    .login-button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      background: #2563eb;
+      color: white;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .login-button:hover {
+      background: #1d4ed8;
+    }
+    
+    .login-button:active {
+      transform: translateY(1px);
+    }
+    
+    #errorMsg {
+      color: #ef4444;
+      font-size: 14px;
+      margin-top: 12px;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    @media (max-width: 992px) {
+      .login-container {
+        max-width: 750px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .login-container {
+        flex-direction: column;
+        max-width: 450px;
+      }
+      
+      .login-sidebar, .login-box {
+        width: 100%;
+      }
+      
+      .login-sidebar {
+        padding: 30px;
+      }
+      
+      .login-box {
+        padding: 30px;
+      }
+      
+      .center-logo {
+        margin-bottom: 20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .login-container {
+        max-width: 100%;
+        margin: 0 15px;
+      }
+      
+      .login-sidebar {
+        padding: 25px 20px;
+      }
+      
+      .login-box {
+        padding: 25px 20px;
+      }
+      
+      .sidebar-heading {
+        font-size: 22px;
+      }
+      
+      .center-logo img {
+        height: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  <div class="light-beam"></div>
+  <div class="light-beam"></div>
+  
+  <div class="login-container">
+    <div class="login-sidebar">
+      <div class="sidebar-pattern"></div>
+      <div class="sidebar-content">
+        <div>
+          <h1 class="sidebar-heading">Developer tools for the modern workflow</h1>
+          <p class="sidebar-text">Access your VCodez account to continue building amazing software with our suite of development tools.</p>
+          
+          <div class="features">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-code"></i>
+              </div>
+              <div class="feature-text-container">
+                <div class="feature-title">Smart Editor</div>
+                <div class="feature-desc">Intelligent code completion and real-time error checking</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-laptop-code"></i>
+              </div>
+              <div class="feature-text-container">
+                <div class="feature-title">Cross-Platform</div>
+                <div class="feature-desc">Work seamlessly across desktop, web, and mobile devices</div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-project-diagram"></i>
+              </div>
+              <div class="feature-text-container">
+                <div class="feature-title">Team Collaboration</div>
+                <div class="feature-desc">Real-time collaboration with team members</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="copyright">
+          © 2025 VCodez. All rights reserved.
+        </div>
+      </div>
+    </div>
+    
+    <div class="login-box">
+      <div class="center-logo">
+        <img src="https://vcodez.com/wp-content/uploads/2024/11/vcodez-8-300x74.png" alt="VCodez Logo">
+      </div>
+      
+      <div class="login-header">
+        <h2 class="login-heading">Welcome back</h2>
+        <p class="login-subheading">Enter your credentials to access your workspace</p>
+      </div>
+      
+      <form id="loginForm">
+        <div class="input-group">
+          <label for="email">Email Address</label>
+          <div class="input-wrapper">
+            <div class="input-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <input type="email" id="email" placeholder="yourname@company.com" required>
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label for="phone">Phone Number</label>
+          <div class="input-wrapper">
+            <div class="input-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <input type="tel" id="phone" placeholder="+1 (123) 456-7890" required>
+          </div>
+        </div>
+        
+        <div class="remember-forgot">
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="remember">
+            <label for="remember">Remember me</label>
+          </div>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+        
+        <button type="submit" class="login-button">
+          Sign In
+        </button>
+        
+        <p id="errorMsg"></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Form validation
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const errorMsg = document.getElementById('errorMsg');
+      
+      // Simple validation
+      if (!validateEmail(email)) {
+        errorMsg.textContent = 'Please enter a valid email address';
+        return;
+      }
+      
+      if (!validatePhone(phone)) {
+        errorMsg.textContent = 'Please enter a valid phone number';
+        return;
+      }
+      
+      errorMsg.textContent = '';
+      
+      // Here you would typically send the form data to your server
+      console.log('Form submitted', { email, phone });
+      
+      // Show success animation
+      const button = document.querySelector('.login-button');
+      button.innerHTML = '<i class="fas fa-check"></i> Success';
+      button.style.background = '#10b981';
+      
+      // Reset after 2 seconds
+      setTimeout(() => {
+        button.innerHTML = 'Sign In';
+        button.style.background = '#2563eb';
+      }, 2000);
+    });
+    
+    function validateEmail(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    }
+    
+    function validatePhone(phone) {
+      // Simple validation
+      const re = /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,4}[-\s.]?[0-9]{1,4}[-\s.]?[0-9]{1,9}$/;
+      return re.test(String(phone));
+    }
+  </script>
+</body>
+</html>

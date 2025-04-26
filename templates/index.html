@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VCodez - Login</title>
+  <link rel="icon" href="https://vcodez.com/wp-content/uploads/2024/11/vcodez-8-300x74.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .particles-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, #0a1128, #1282a2, #034748);
+      background-size: 400% 400%;
+      animation: gradientFlow 18s ease infinite;
+    }
+    
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.5;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 8s infinite ease-in-out;
+    }
+    
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.2; }
+      25% { opacity: 0.5; }
+      50% { transform: translateY(-20px) translateX(20px) rotate(180deg); opacity: 0.3; }
+      75% { opacity: 0.5; }
+      100% { transform: translateY(0) translateX(0) rotate(360deg); opacity: 0.2; }
+    }
+    
+    .login-container {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+    
+    .login-sidebar {
+      width: 40%;
+      background: linear-gradient(135deg, #034748, #1282a2);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .sidebar-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 20%);
+      z-index: 0;
+    }
+    
+    .sidebar-content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .sidebar-logo img {
+      height: 40px;
+    }
+    
+    .sidebar-heading {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    
+    .sidebar-text {
+      font-size: 14px;
+      line-height: 1.6;
+      opacity: 0.9;
+      margin-bottom: 30px;
+    }
+    
+    .features {
+      margin-bottom: 40px;
+    }
+    
+    .feature-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 14px;
+      flex-shrink: 0;
+    }
+    
+    .feature-text {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .copyright {
+      font-size: 12px;
+      opacity: 0.7;
+    }
+    
+    .login-box {
+      width: 60%;
+      padding: 50px;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .login-heading {
+      font-size: 28px;
+      font-weight: 600;
+      color: #0a1128;
+      margin-bottom: 12px;
+    }
+    
+    .login-subheading {
+      font-size: 14px;
+      color: #64748b;
+    }
+    
+    .input-group {
+      margin-bottom: 24px;
+      position: relative;
+    }
+    
+    .input-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #64748b;
+      font-size: 14px;
+    }
+    
+    .input-wrapper {
+      position: relative;
+    }
+    
+    .input-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+    }
+    
+    .input-group input {
+      width: 100%;
+      padding: 14px 16px 14px 46px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      color: #0f172a;
+      font-size: 15px;
+      transition: all 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .input-group input:focus {
+      outline: none;
+      border-color: #1282a2;
+      box-shadow: 0 0 0 3px rgba(18, 130, 162, 0.15);
+      background: white;
+    }
+    
+    .input-group input::placeholder {
+      color: #94a3b8;
+    }
+    
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+    
+    .remember {
+      display: flex;
+      align-items: center;
+    }
+    
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+    }
+    
+    .checkbox-wrapper input {
+      margin-right: 8px;
+      accent-color: #1282a2;
+    }
+    
+    .forgot-link {
+      color: #1282a2;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .forgot-link:hover {
+      text-decoration: underline;
+    }
+    
+    .login-button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(to right, #034748, #1282a2);
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .login-button:hover {
+      background: linear-gradient(to right, #023031, #0e6980);
+      transform: translateY(-2px);
+    }
+    
+    .login-button:active {
+      transform: translateY(0);
+    }
+    
+    .login-button::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: -100%;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: all 0.5s;
+    }
+    
+    .login-button:hover::after {
+      left: 100%;
+    }
+    
+    .alternate-signin {
+      margin-top: 24px;
+      text-align: center;
+    }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 16px 0;
+    }
+    
+    .divider hr {
+      flex: 1;
+      border: none;
+      height: 1px;
+      background: #e2e8f0;
+    }
+    
+    .divider-text {
+      padding: 0 16px;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+    
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    
+    .social-button {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .social-button:hover {
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transform: translateY(-2px);
+    }
+    
+    .security-note {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .security-note i {
+      margin-right: 6px;
+      color: #10b981;
+    }
+    
+    #errorMsg {
+      color: #ef4444;
+      font-size: 14px;
+      margin-top: 12px;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    @media (max-width: 992px) {
+      .login-container {
+        max-width: 700px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .login-container {
+        flex-direction: column;
+        max-width: 450px;
+      }
+      
+      .login-sidebar, .login-box {
+        width: 100%;
+      }
+      
+      .login-sidebar {
+        padding: 30px;
+      }
+      
+      .login-box {
+        padding: 40px 30px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .login-container {
+        max-width: 100%;
+        margin: 0 20px;
+      }
+      
+      .login-sidebar {
+        padding: 24px;
+      }
+      
+      .login-box {
+        padding: 30px 20px;
+      }
+      
+      .sidebar-heading {
+        font-size: 24px;
+      }
+      
+      .login-heading {
+        font-size: 24px;
+      }
+      
+      .social-buttons {
+        gap: 12px;
+      }
+      
+      .social-button {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles-container" id="particles"></div>
+  
+  <div class="login-container">
+    <div class="login-sidebar">
+      <div class="sidebar-pattern"></div>
+      <div class="sidebar-content">
+        <div>
+          <div class="sidebar-logo">
+            
+          </div>
+          <h1 class="sidebar-heading">Welcome to VCodez Inovating Ideas Platform</h1>
+          <p class="sidebar-text">Access your account to unlock powerful coding tools and resources for your projects.</p>
+          
+          <div class="features">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-code"></i>
+              </div>
+              <div class="feature-text">Transforming Ideas into Reality</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-project-diagram"></i>
+              </div>
+              <div class="feature-text">Empowering Innovation and Growth: The Vcodez Work Culture</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+              </div>
+              <div class="feature-text">Cloud deployment and version control</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="copyright">
+          © 2025 VCodez. All rights reserved.
+        </div>
+      </div>
+    </div>
+    
+    <div class="login-box">
+      <link rel="icon" href="https://vcodez.com/wp-content/uploads/2024/11/vcodez-8-300x74.png">
+      <div class="login-header">
+         <img src="https://vcodez.com/wp-content/uploads/2024/11/vcodez-8-300x74.png" alt="VCodez Logo">
+
+        <h2 class="login-heading">Sign in to your account</h2>
+        <p class="login-subheading">Enter your credentials to access your workspace</p>
+      </div>
+      
+      <form id="loginForm">
+        <div class="input-group">
+          <label for="email">Email Address</label>
+          <div class="input-wrapper">
+            <div class="input-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <input type="email" id="email" placeholder="yourname@example.com" required>
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label for="phone">Phone Number</label>
+          <div class="input-wrapper">
+            <div class="input-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <input type="tel" id="phone" placeholder="+91 1234567890" required>
+          </div>
+        </div>
+        
+        <div class="remember-forgot">
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="remember">
+            <label for="remember">Remember me</label>
+          </div>
+         
+        </div>
+        
+        <button type="submit" class="login-button">
+          Sign In
+        </button>
+        
+        <p id="errorMsg"></p>
+        
+        <div class="alternate-signin">
+          <div class="divider">
+                   </div>
+        
+        <div class="security-note">
+          <i class="fas fa-shield-alt"></i>
+          <span>Your information is securely encrypted</span>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    // 🔹 Create animated background particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 20;
+  
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+  
+        const size = Math.random() * 80 + 20;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+  
+        particlesContainer.appendChild(particle);
+      }
+    }
+  
+    // 🔹 Input validation functions
+    function validateEmail(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    }
+  
+    function validatePhone(phone) {
+      const re = /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,4}[-\s.]?[0-9]{1,4}[-\s.]?[0-9]{1,9}$/;
+      return re.test(String(phone));
+    }
+  
+    // 🔹 Form submission handler with validation + fetch
+    const form = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('errorMsg');
+  
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+  
+      const email = form.email.value;
+      const phone = form.phone.value;
+  
+      if (!validateEmail(email)) {
+        errorMsg.textContent = 'Please enter a valid email address';
+        return;
+      }
+  
+      if (!validatePhone(phone)) {
+        errorMsg.textContent = 'Please enter a valid phone number';
+        return;
+      }
+  
+      errorMsg.textContent = '';
+  
+      const payload = { email, phone };
+  
+      try {
+        const resp = await fetch('/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+  
+        const data = await resp.json();
+  
+        if (resp.ok && data.success) {
+          // Animate success
+          const button = document.querySelector('.login-button');
+          button.innerHTML = '<i class="fas fa-check"></i> Success';
+          button.style.background = 'linear-gradient(to right, #10b981, #059669)';
+  
+          setTimeout(() => {
+            button.innerHTML = 'Sign In';
+            button.style.background = 'linear-gradient(to right, #034748, #1282a2)';
+            window.location.href = data.redirect;
+          }, 1500);
+        } else {
+          errorMsg.textContent = data.message || 'Login failed';
+        }
+      } catch (err) {
+        console.error(err);
+        errorMsg.textContent = 'An error occurred';
+      }
+    });
+  
+    // 🔹 Run particles on load
+    window.addEventListener('load', createParticles);
+  </script>
+  </body>
+</html>

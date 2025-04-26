@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VCodez - Intern Candidate Portal</title>
+  <link rel="icon" href="https://vcodez.com/wp-content/uploads/2024/11/vcodez-8-300x74.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    :root {
+      --primary: #1282a2;
+      --primary-light: #034748;
+      --secondary: #0a1128;
+      --accent: #10b981;
+      --light-bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-dark: #0f172a;
+      --text-gray: #64748b;
+      --text-light: #94a3b8;
+      --border-color: #e2e8f0;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #dbeafe, #eff6ff, #f0f9ff);
+      color: var(--text-dark);
+      padding-top: 70px;
+      overflow-x: hidden;
+    }
+
+    .particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, #e0f2fe, #eff6ff, #f0f9ff);
+      background-size: 400% 400%;
+      animation: gradientFlow 18s ease infinite;
+    }
+    
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      background: rgba(18, 130, 162, 0.1);
+      animation: float 12s infinite ease-in-out;
+    }
+    
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.2; }
+      25% { opacity: 0.3; }
+      50% { transform: translateY(-20px) translateX(20px) rotate(180deg); opacity: 0.2; }
+      75% { opacity: 0.3; }
+      100% { transform: translateY(0) translateX(0) rotate(360deg); opacity: 0.2; }
+    }
+    
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to right, var(--primary), var(--primary-light));
+      padding: 0 40px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      height: 70px;
+      transition: all 0.3s ease;
+    }
+
+    .navbar .brand {
+      display: flex;
+      align-items: center;
+      color: white;
+      text-decoration: none;
+    }
+
+    .navbar .brand img {
+      height: 38px;
+      margin-right: 10px;
+    }
+
+    .navbar .nav-links {
+      display: flex;
+    }
+
+    .navbar .nav-links a {
+      margin-left: 3px;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 10px 15px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .navbar .nav-links a i {
+      margin-right: 6px;
+    }
+
+    .navbar .nav-links a:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-links a.active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: #ef4444;
+      color: white;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .page-title {
+      color: var(--primary);
+    }
+
+    .page-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn i {
+      margin-right: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, var(--primary), var(--primary-light));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(to right, #023738, #0e6c86);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: rgba(3, 71, 72, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .btn-danger {
+      background: #ef4444;
+      color: white;
+    }
+    
+    .btn-danger:hover {
+      background: #dc2626;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      margin-bottom: 30px;
+      position: relative;
+      animation: slideUp 0.5s ease-out;
+    }
+
+    .card-pattern {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(circle at 90% 10%, rgba(18, 130, 162, 0.03) 0%, transparent 30%),
+                        radial-gradient(circle at 10% 90%, rgba(18, 130, 162, 0.03) 0%, transparent 30%);
+      z-index: 0;
+    }
+
+    .card-header {
+      background: linear-gradient(to right, var(--primary), var(--primary-light));
+      padding: 20px 25px;
+      color: white;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+
+    .card-title i {
+      margin-right: 10px;
+    }
+
+    .card-body {
+      padding: 25px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .avatar-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(to right, var(--primary-light), var(--accent));
+      border: 4px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      color: white;
+      margin-right: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .avatar-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .user-role {
+      color: var(--text-gray);
+      display: flex;
+      align-items: center;
+    }
+
+    .status-badge {
+      background: #dbeafe;
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    .status-badge.success {
+      background: #d1fae5;
+      color: var(--accent);
+    }
+
+    .status-badge.warning {
+      background: #fef3c7;
+      color: #f59e0b;
+    }
+
+    .status-badge.danger {
+      background: #fee2e2;
+      color: #ef4444;
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      padding: 12px 20px;
+      font-weight: 600;
+      color: var(--text-gray);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s;
+    }
+
+    .tab:hover {
+      color: var(--primary);
+    }
+
+    .tab.active {
+      color: var(--primary-light);
+      border-bottom-color: var(--primary-light);
+    }
+
+    .tab i {
+      margin-right: 8px;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+      margin-bottom: 25px;
+    }
+
+    .info-item {
+      background: var(--light-bg);
+      border-radius: 10px;
+      padding: 16px;
+      transition: all 0.3s;
+    }
+
+    .info-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .info-label {
+      font-size: 13px;
+      color: var(--text-gray);
+      margin-bottom: 6px;
+    }
+
+    .info-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+      word-break: break-word;
+    }
+
+    .section-title {
+      font-size: 18px;
+      color: var(--primary);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(18, 130, 162, 0.1);
+      display: flex;
+      align-items: center;
+    }
+
+    .section-title i {
+      margin-right: 8px;
+      background: rgba(18, 130, 162, 0.1);
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+    }
+
+    .progress-container {
+      margin-bottom: 25px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .progress-title {
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+
+    .progress-value {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(to right, var(--primary), var(--primary-light));
+    }
+
+    .assessment-card {
+      background: var(--light-bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      transition: all 0.3s;
+    }
+
+    .assessment-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .assessment-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .assessment-title {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .assessment-score {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .assessment-score.high {
+      color: var(--accent);
+    }
+
+    .assessment-score.medium {
+      color: #f59e0b;
+    }
+
+    .assessment-score.low {
+      color: #ef4444;
+    }
+
+    .assessment-details {
+      font-size: 13px;
+      color: var(--text-gray);
+      margin-bottom: 12px;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .skill-tag {
+      background: rgba(18, 130, 162, 0.1);
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .timeline {
+      position: relative;
+      margin: 20px 0;
+      padding-left: 30px;
+    }
+
+    .timeline:before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #e2e8f0;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -30px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid var(--primary-light);
+      top: 3px;
+    }
+    
+    .timeline-dot.active {
+      background: var(--primary-light);
+    }
+
+    .timeline-date {
+      font-size: 12px;
+      color: var(--text-gray);
+      margin-bottom: 5px;
+    }
+
+    .timeline-content {
+      background: var(--light-bg);
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--text-dark);
+    }
+
+    .timeline-text {
+      font-size: 13px;
+      color: var(--text-gray);
+    }
+
+    .footer {
+      background: var(--light-bg);
+      padding: 20px;
+      text-align: center;
+      color: var(--text-gray);
+      font-size: 13px;
+      margin-top: 40px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-light);
+    }
+
+    .empty-state i {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.7;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 1024px) {
+      .container {
+        padding: 0 15px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 0 20px;
+      }
+      
+      .navbar .nav-links a span {
+        display: none;
+      }
+      
+      .navbar .nav-links a i {
+        margin-right: 0;
+      }
+
+      .card-header {
+        padding: 15px 20px;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      .navbar .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: var(--primary);
+        flex-direction: column;
+        padding: 20px;
+        transition: all 0.3s ease;
+        z-index: 999;
+      }
+
+      .navbar .nav-links.active {
+        left: 0;
+      }
+
+      .navbar .nav-links a {
+        margin: 10px 0;
+        font-size: 18px;
+      }
+
+      .navbar .nav-links a i {
+        margin-right: 10px;
+      }
+
+      .navbar .nav-links a span {
+        display: inline-block;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .avatar-container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .avatar {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      .page-actions {
+        width: 100%;
+      }
+
+      .page-actions .btn {
+        flex: 1;
+      }
+
+      .tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .tab {
+        padding: 10px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+   <!-- Navigation bar -->
+   <nav class="navbar">
+    <a href="#" class="brand">
+      <img src="https://vcodez.com/wp-content/uploads/2024/11/vcodez-8-300x74.png" alt="VCodez Logo">
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#" class="active"><i class="fas fa-home"></i><span>Dashboard</span></a>
+      <a href="#"><i class="fas fa-project-diagram"></i></i> Project<span>Projects</span></a>
+      <a href="#"><i class="fas fa-chart-bar"></i><span>Assessments</span></a>
+      <a href="#"><i class="fas fa-graduation-cap"></i><span>Learning</span></a>
+      <a href="#"><i class="fas fa-bell"></i><span>Notifications</span><span class="notification-badge">3</span></a>
+      <a href="#"><i class="fas fa-cog"></i><span>Settings</span></a>
+      <a href="/logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+    </div>
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Welcome to Your Candidate Portal</h1>
+    </div>
+
+    <!-- User Profile Card -->
+    <div class="card">
+      <div class="card-pattern"></div>
+      <div class="card-header">
+        <h2 class="card-title"><i class="fas fa-user-circle"></i> Candidate Profile</h2>
+      </div>
+      <div class="card-body">
+        <!-- Avatar and name section -->
+        <div class="avatar-container">
+          <div class="avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="avatar-info">
+            <h2 class="user-name">{{ details.name }}</h2>
+            <div class="user-role">
+              {{ details.domain }} Internship
+              <span class="status-badge success">Active</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <div class="tab active" data-tab="personal">
+            <i class="fas fa-user"></i> Personal
+          </div>
+          <div class="tab" data-tab="project">
+            <i class="fas fa-project-diagram"></i> Project
+          </div>
+          <div class="tab" data-tab="contact">
+            <i class="fas fa-address-card"></i> Contact
+          </div>
+          <div class="tab" data-tab="assessment">
+            <i class="fas fa-chart-bar"></i> Assessment
+          </div>
+          <div class="tab" data-tab="timeline">
+            <i class="fas fa-history"></i> Timeline
+          </div>
+          <div class="tab" data-tab="attendance">
+            <i class="fas fa-calendar-check"></i></i> Attendance
+          </div>
+        </div>
+
+        <!-- Personal Tab -->
+        <div class="tab-content active" id="personal">
+          <div class="section-title">
+            <i class="fas fa-user"></i> Personal Details
+          </div>
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Full Name</div>
+              <div class="info-value">{{ details.name }}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Email Address</div>
+              <div class="info-value">{{ details.email }}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Phone Number</div>
+              <div class="info-value">{{ details.phone }}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Domain</div>
+              <div class="info-value">{{ details.domain }}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Mode</div>
+              <div class="info-value">{{ details.mode }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Tab -->
+        <div class="tab-content" id="project">
+          <div class="section-title">
+            <i class="fas fa-project-diagram"></i> Project Information
+          </div>
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Project Title</div>
+              <div class="info-value">{{ details.project_title }}</div>
+            </div>
+          </div>
+          
+          <div class="section-title" style="margin-top: 30px;">
+            <i class="fas fa-tasks"></i> Project Status
+          </div>
+          
+          <div class="progress-container">
+            <div class="progress-label">
+              <span class="progress-title">Project Progress</span>
+              <span class="progress-value">25%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 25%"></div>
+            </div>
+          </div>
+          
+          <div class="assessment-card">
+            <div class="assessment-header">
+              <div class="assessment-title">Project Description</div>
+            </div>
+            <div class="assessment-details">
+              This project involves creating a web application using the technologies and methodologies learned during the internship. The application will be designed to solve real-world problems in the {{ details.domain }} domain.
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Tab -->
+        <div class="tab-content" id="contact">
+          <div class="section-title">
+            <i class="fas fa-envelope"></i> Contact Information
+          </div>
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Email Address</div>
+              <div class="info-value">{{ details.email }}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Phone Number</div>
+              <div class="info-value">{{ details.phone }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Assessment Tab -->
+        <div class="tab-content" id="assessment">
+          <div class="section-title">
+            <i class="fas fa-chart-bar"></i> Assessment Scores
+          </div>
+          
+          <div class="assessment-card">
+            <div class="assessment-header">
+              <div class="assessment-title">Assessment 1</div>
+              <div class="assessment-score high">{{ details.assessment1 }}</div>
+            </div>
+            <div class="assessment-details">
+              Initial assessment to evaluate your skills and knowledge in {{ details.domain }}.
+            </div>
+          </div>
+          
+          <div class="assessment-card">
+            <div class="assessment-header">
+              <div class="assessment-title">Assessment 2</div>
+              <div class="assessment-score medium">{{ details.assessment2 }}</div>
+            </div>
+            <div class="assessment-details">
+              Follow-up assessment to measure progress and growth in your understanding of {{ details.domain }}.
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Tab -->
+        <div class="tab-content" id="timeline">
+          <div class="section-title">
+            <i class="fas fa-history"></i> Application Timeline
+          </div>
+
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot active"></div>
+              <div class="timeline-date">Now</div>
+              <div class="timeline-content">
+                <div class="timeline-title">Internship In Progress</div>
+                <div class="timeline-text">You are currently working on your internship project.</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-date">{{ details.start_date }}</div>
+              <div class="timeline-content">
+                <div class="timeline-title">Internship Started</div>
+                <div class="timeline-text">You officially began your internship program.</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-date">{{ details.registration_date }}</div>
+              <div class="timeline-content">
+                <div class="timeline-title">Registration</div>
+                <div class="timeline-text">You registered for the internship program.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="attendance-card">
+        <div class="attendance-header">
+          <div class="attendence-title">Attendance Details</div>
+          <div class="attendance-score medium">{{ details.attendance }}</div>
+          
+        </div>
+        <div class="attendance-details">
+          Follow-up assessment to measure progress and growth in your understanding of {{ details.domain }}.
+        </div>
+      </div>
+      
+      
+
+      <div class="action-buttons">
+        <button class="btn btn-outline" id="editProfileBtn">
+          <i class="fas fa-edit"></i> Edit Profile
+        </button>
+        <button class="btn btn-primary" id="downloadBtn">
+          <i class="fas fa-download"></i> Download Info
+        </button>
+        <a href="/logout" class="btn btn-danger" id="logoutBtnBottom">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>&copy; 2025 VCodez Intern Candidate Portal. All rights reserved.</p>
+  </div>
+  <script>
+   document.addEventListener('DOMContentLoaded', function() {
+  // Tab switching functionality
+  const tabs = document.querySelectorAll('.tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+  
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const tabId = this.getAttribute('data-tab');
+      
+      // Remove active class from all tabs and contents
+      tabs.forEach(t => t.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+      
+      // Add active class to current tab and content
+      this.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    });
+  });
+
+  // Logout functionality
+  const logoutBtns = document.querySelectorAll('#logoutBtn, #logoutBtnBottom');
+  logoutBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if(confirm('Are you sure you want to logout?')) {
+        window.location.href = '/logout';
+      }
+    });
+  });
+
+  // Edit profile functionality
+  document.getElementById('editProfileBtn').addEventListener('click', function() {
+    alert('Edit profile functionality will be available soon.');
+  });
+
+  // Download info functionality
+  document.getElementById('downloadBtn').addEventListener('click', function() {
+    alert('Your information will be downloaded as a PDF file.');
+  });
+  
+  // Mobile menu toggle
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const navLinks = document.getElementById('navLinks');
+  
+  if(mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+      const icon = this.querySelector('i');
+      if(navLinks.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+  }
+});
+  </script>
+</body>
+</html>
