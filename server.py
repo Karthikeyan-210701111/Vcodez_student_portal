@@ -7,11 +7,20 @@ import pandas as pd
 load_dotenv()
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = os.getenv('SECRET_KEY', 'temporary_dev_secret_9f1c4b2a8d7e423eaf5f3456d29fd8e7')
+
 
 @app.route('/')
 def index():
     return render_template('index.html', details=None)
+@app.route('/learning')
+def learning_page():  # Changed function name to avoid any potential conflicts
+    return render_template('learning.html')
+
+@app.route('/learning.html')  # Adding this route as a fallback
+def learning_html():
+    return render_template('learning.html')
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -103,5 +112,6 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
+
